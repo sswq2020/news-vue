@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="news" ref="newsWrapper">
-        <div class="news-content" v-if="newsdata.length && slides.length">
+    <div class="newsTemplate" ref="newsWrapper">
+        <div class="news-content">
             <!--轮播图-->
             <div class="slide-wrapper">
                 <div class="slide-content">
@@ -17,7 +17,7 @@
                 <li @click="selectArticle(item,$event)" 
                     class="list-item border-1px img_1" 
                     v-if="item.avatar.length === 1" 
-                    v-for="(item,index) in newsdata" 
+                    v-for="(item,index) in filldata" 
                     :key="index">
                     <div class="avatar">
                         <img :src="item.avatar[0]" width="85px" height="63.5px">
@@ -53,7 +53,6 @@
             </div>            
             
         </div>
-        <div class="noInform">暂无信息!</div>
     </div>
     <newsdetail :newsinfo="selectedArticle" ref="newsdetail"></newsdetail>
   </div>
@@ -64,6 +63,7 @@ import Vue from 'vue';
 import BScroll from 'better-scroll';
 import slide from '../slide/slide.vue';
 import newsdetail from '../newsdetail/newsdetail.vue';
+
 const TemplateTest = `<p style="text-indent:2em;width:100%;" >
     <img src="./static/img/swapper1.jpg" style="display:block;margin:0 auto;width:100%;height:100%">
 </p>
@@ -89,54 +89,42 @@ const TemplateTest = `<p style="text-indent:2em;width:100%;" >
 <p style="text-indent:2em;">
     希望尽快拿到iPhone 8的用户希望在发售的时候能够预订这款设备。目前尚不清楚，在9月12日推出iPhone 8后不久，苹果是否会立即开售iPhone 8，以及供应短缺问题是否将导致苹果推迟9月发货。（小小）
 </p>`
-const ERR_OK = 0;
+
 export default {
+    props: {
+        slides: {
+            type: Array
+        },
+        newsdata: {
+            type: Array
+        }
+    },
     data () {
         return {
-            slides: [],
-            newsdata: [],
+            filldata: [],
             selectedArticle: {},
             bottomTip: '查看更多'
         }
     },
-    created () {
-        this.axios.get('/api/slides').then((response) => {
-            let res = response.data;
-            if (res.errno === ERR_OK) {
-                this.slides = [];
-                this.loadData();
-            }
-        })
+    mounted () {
+        this.loadData();
     },
     methods: {
        loadData () {
-           this.axios.get('/api/news').then((response) => {
-               let res = response.data;
-               if (res.errno === ERR_OK) {
-                    this.newsdata = this.newsdata.concat(res.data);
-                    this.bottomTip = '查看更多'
-                    this.$nextTick(() => {
-                        if (!this.contentScroll) {
-                            this.contentScroll = new BScroll(this.$refs.newsWrapper, {
-                                click: true,
-                                probeType: 1
-                            });
-                            this.contentScroll.on('scrollEnd', (pos) => {
-                                console.log(pos.y);
-                                console.log(this.contentScroll.y);
-                                console.log(this.contentScroll.maxScrollY);
-                                if (this.contentScroll.y <= (this.contentScroll.maxScrollY+ 10)) {
-                                    this.bottomTip = '加载中...'
-                                    setTimeout(() => {
-                                        this.loadData();
-                                    },500)                          
-                                }
-                            })
-                        } else {
-                            this.contentScroll.refresh();
-                        }
-                    }) 
-               }
+           this.filldata = this.filldata.concat(this.newsdata);
+           this.bottomTip = '查看更多'
+           this.$nextTick(() => {
+              if (!this.contentScroll) {
+                  this.contentScroll = new BScroll(this.$refs.newsWrapper, {
+                      click: true,
+                      probeType: 1
+                  });
+                  this.contentScroll.on('scrollEnd', (pos) => {
+                      if (this.contentScroll.y <= (this.contentScroll.maxScrollY + 10)) { this.bottomTip = '加载中...'; this.$emit('dispatchUp'); }
+                  })
+              } else {
+                  this.contentScroll.refresh();
+              }
            })
        },
        selectArticle (item, event) {
@@ -145,11 +133,16 @@ export default {
            }
            this.selectedArticle = item;
            if (!this.selectedArticle.text) {
-                Vue.set(this.selectedArticle,'text',TemplateTest);
-                Vue.set(this.selectedArticle,'editor','杨蕾蕾');
+                Vue.set(this.selectedArticle, 'text', TemplateTest);
+                Vue.set(this.selectedArticle, 'editor', '杨蕾蕾');
             }
            this.$refs.newsdetail.show();
        }
+    },
+    watch: {
+        newsdata () {
+            this.loadData();
+        }
     },
     components: {
         slide,
@@ -160,7 +153,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
     @import"../../common/stylus/mixin.styl"
-    .news
+    .newsTemplate
       position:absolute
       top:40px
       bottom:0
@@ -232,19 +225,10 @@ export default {
               color:#808080
               .media
                 margin-right:8px
-
-
       .bottom-tip
         width:100%
         height:35px
         line-height:35px
         text-align:center
-        background-color:#f2f2f2
-      .noInform
-        height:100%
-        width:100%
-        box-sizing:border-box;
-        padding:100px
-        text-align:center
-        background-color:#f2f2f2         
+        background-color:#f2f2f2          
 </style>      

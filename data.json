@@ -1,0 +1,12 @@
+{
+    "news": [{ "avatar": ["./static/img/news1.jpg"], "title": "上党镇东方村实施村庄环境整治提升工程", "media": "丹徒传媒网", "time": "48分钟前" },
+        { "avatar": ["./static/img/news4_1.jpg", "./static/img/news4_2.jpg", "./static/img/news4_3.jpg"], "title": "推动制造行业按标生产 提升食品机械产品质量", "media": "丹徒传媒网", "time": "52分钟前" },
+        { "avatar": ["./static/img/news2.jpg"], "title": "丹徒区召开领导干部大会", "media": "丹徒传媒网", "time": "52分钟前" },
+        { "avatar": [], "title": "沃尔玛将联手谷歌推语音购物 说话就能下单", "media": "中国科技网", "time": "1个月前" },
+        { "avatar": ["./static/img/news5.jpg"], "title": "OLED装配难让生产受挫，外媒：iPhone8或推迟上市", "media": "腾讯数码", "time": "5天前" }
+    ],
+    "slides": [{ "avatar": ["./static/img/swapper1.jpg"], "title": "砥砺奋进的五年：坚持生态领先   丰富发展内涵", "media": "丹徒传媒网", "time": "48分钟前" },
+        { "avatar": ["./static/img/swapper2.jpg"], "title": "城市管理效率高 精品丹徒不是梦", "media": "丹徒传媒网", "time": "48分钟前" },
+        { "avatar": ["./static/img/swapper3.jpg"], "title": "砥砺奋进的五年：深化“放管服” 促进改革向纵深推进", "media": "丹徒传媒网", "time": "48分钟前" }
+    ]
+}
