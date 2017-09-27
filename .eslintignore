@@ -1,0 +1,4 @@
+build/*.js
+config/*.js
+src/components/news/news.vue
+src/common/js/dom.js
