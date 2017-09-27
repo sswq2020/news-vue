@@ -108,7 +108,7 @@ export default {
             slides: [],
             newsdata: [],
             selectedArticle: {},
-            bottomTip: '加载新的'
+            bottomTip: '查看更多'
         }
     },
     mounted () {
