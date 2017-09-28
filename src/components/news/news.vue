@@ -53,7 +53,7 @@
             </div>            
             
         </div>
-        <div class="noInform">暂无信息!</div>
+        <h1 class="noInform">暂无信息!</h1>
     </div>
     <newsdetail :newsinfo="selectedArticle" ref="newsdetail"></newsdetail>
   </div>
@@ -103,7 +103,7 @@ export default {
         this.axios.get('/api/slides').then((response) => {
             let res = response.data;
             if (res.errno === ERR_OK) {
-                this.slides = [];
+                this.slides = res.data;
                 this.loadData();
             }
         })
@@ -246,5 +246,6 @@ export default {
         box-sizing:border-box;
         padding:100px
         text-align:center
-        background-color:#f2f2f2         
+        background-color:#f2f2f2   
+        font-weight:700      
 </style>      

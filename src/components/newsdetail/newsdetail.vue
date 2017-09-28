@@ -1,7 +1,7 @@
 <template>
     <transition name="move">
       <div v-show="showFlag" class="newsdetail" ref="newsdetail">
-         <div class="back" @click.stop="hide"></div>
+         <div class="back border-1px" @click.stop="hide"></div>
          <div class="articleWapper" ref="articleWapper">
             <div class="article">
                 <div class="content-title">
@@ -58,6 +58,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+    @import"../../common/stylus/mixin.styl"
     .newsdetail
       position:absolute
       left:0
@@ -74,11 +75,12 @@ export default {
       .back
         position:relative
         width:100%
-        height:50px
-        background-color:rgba(34,34,34,0.8)
+        height:40px
+        background-color:rgba(254, 254, 252, 1);
+        border-1px(rgba(7,17,27,0.1))
       .articleWapper
         position:absolute
-        top:50px
+        top:40px
         left:0
         bottom:0
         width:100%
