@@ -35,7 +35,10 @@ export default {
   name: 'app',
   mounted () {
      this.$nextTick(() => {
-        this._initScroll();
+        this._computedWidth();
+        this.$nextTick(() => {
+          this._initScroll();
+        })
      })
   },
   methods: {
@@ -46,6 +49,17 @@ export default {
         probeType: 2,
         click: true
       })
+    },
+    // 计算tab的DOM宽度
+    _computedWidth () {
+      let arryWith = 0;
+      let tabList = this.$refs.navWrapper.getElementsByClassName('tab-item');
+      let styleObject = this.$refs.navWrapper.getElementsByClassName('tab')[0];
+      for (let i = 0; i < tabList.length; i++) {
+        console.log(arryWith)
+        arryWith = arryWith + tabList[i].offsetWidth + 3
+      }
+      styleObject.style.width = arryWith + 'px'
     }
   }
 }
@@ -62,7 +76,6 @@ export default {
     height: 35px
     line-height: 35px
     background-color:#fff
-    width:440px
     .tab-item
       display:inline-block
       padding:0 13px
