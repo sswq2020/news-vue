@@ -55,6 +55,7 @@
         </div>
         <h1 class="noInform">暂无信息!</h1>
     </div>
+    <alert ref="alert"></alert>
     <newsdetail :newsinfo="selectedArticle" ref="newsdetail"></newsdetail>
   </div>
 </template>
@@ -63,6 +64,7 @@
 import Vue from 'vue';
 import BScroll from 'better-scroll';
 import slide from '../slide/slide.vue';
+import alert from '../alert/alert.vue';
 import newsdetail from '../newsdetail/newsdetail.vue';
 const TemplateTest = `<p style="text-indent:2em;width:100%;" >
     <img src="./static/img/swapper1.jpg" style="display:block;margin:0 auto;width:100%;height:100%">
@@ -112,6 +114,7 @@ export default {
        loadData () {
            this.axios.get('/api/news').then((response) => {
                let res = response.data;
+               this.$refs.alert.isShow = true;
                if (res.errno === ERR_OK) {
                     this.newsdata = this.newsdata.concat(res.data);
                     this.bottomTip = '查看更多'
@@ -153,7 +156,8 @@ export default {
     },
     components: {
         slide,
-        newsdetail
+        newsdetail,
+        alert
     }
 }
 </script>
