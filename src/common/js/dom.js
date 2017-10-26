@@ -1,9 +1,9 @@
-export function hasClass(el, className) {
+export const hasClass = (el, className) => {
     let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
     return reg.test(el.className)
 }
 
-export function addClass(el, className) {
+export const addClass = (el, className) => {
     if (hasClass(el, className)) {
         return
     }
@@ -13,7 +13,7 @@ export function addClass(el, className) {
     el.className = newClass.join(' ')
 }
 
-export function removeClass(el, className) {
+export const removeClass = (el, className) => {
     if (!hasClass(el, className)) {
         return
     }
@@ -22,7 +22,7 @@ export function removeClass(el, className) {
     el.className = el.className.replace(reg, ' ')
 }
 
-export function getData(el, name, val) {
+export const getData = (el, name, val) => {
     let prefix = 'data-'
     if (val) {
         return el.setAttribute(prefix + name, val)
@@ -30,7 +30,7 @@ export function getData(el, name, val) {
     return el.getAttribute(prefix + name)
 }
 
-export function getRect(el) {
+export const getRect = (el) => {
     if (el instanceof window.SVGElement) {
         let rect = el.getBoundingClientRect()
         return {

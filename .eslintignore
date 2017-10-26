@@ -1,5 +1,2 @@
 build/*.js
 config/*.js
-src/components/news/news.vue
-src/components/hotspot/hotspot.vue
-src/common/js/dom.js

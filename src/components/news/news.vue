@@ -128,17 +128,17 @@ export default {
                                 console.log(pos.y);
                                 console.log(this.contentScroll.y);
                                 console.log(this.contentScroll.maxScrollY);
-                                if (this.contentScroll.y <= (this.contentScroll.maxScrollY+ 10)) {
+                                if (this.contentScroll.y <= (this.contentScroll.maxScrollY + 10)) {
                                     this.bottomTip = '加载中...'
                                     setTimeout(() => {
                                         this.loadData();
-                                    },500)                          
+                                    }, 500)
                                 }
                             })
                         } else {
                             this.contentScroll.refresh();
                         }
-                    }) 
+                    })
                }
            })
        },
@@ -148,8 +148,8 @@ export default {
            }
            this.selectedArticle = item;
            if (!this.selectedArticle.text) {
-                Vue.set(this.selectedArticle,'text',TemplateTest);
-                Vue.set(this.selectedArticle,'editor','杨蕾蕾');
+                Vue.set(this.selectedArticle, 'text', TemplateTest);
+                Vue.set(this.selectedArticle, 'editor', '杨蕾蕾');
             }
            this.$refs.newsdetail.show();
        }
