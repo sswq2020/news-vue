@@ -25,12 +25,14 @@
         </div>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view :key="key"></router-view>
   </div>
 </template>
 
 <script>
+// region 引入npm库
 import BScroll from 'better-scroll';
+// endregion
 export default {
   name: 'app',
   mounted () {
@@ -42,6 +44,9 @@ export default {
      })
   },
   methods: {
+    /**
+     * 标题导航横轴滚动初始化
+     * */
     _initScroll () {
       let vm = this;
       this.navScroll = new BScroll(vm.$refs.navWrapper, {
@@ -50,7 +55,9 @@ export default {
         click: true
       })
     },
-    // 计算tab的DOM宽度
+    /**
+     * 动态计算list宽度
+     * */
     _computedWidth () {
       let arryWith = 0;
       let tabList = this.$refs.navWrapper.getElementsByClassName('tab-item');
@@ -61,7 +68,15 @@ export default {
       }
       styleObject.style.width = arryWith + 'px'
     }
-  }
+  },
+  computed: {
+    /**
+     * 保证组件生命周期可以重新渲染
+     * */
+    key () {
+        return this.$route.path !== undefined ? this.$route.path + new Date() : this.$route + new Date();
+    }
+ }
 }
 </script>
 
