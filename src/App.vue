@@ -51,6 +51,7 @@ export default {
       let vm = this;
       this.navScroll = new BScroll(vm.$refs.navWrapper, {
         scrollX: true,
+        scrollY: false,
         probeType: 2,
         click: true
       })
